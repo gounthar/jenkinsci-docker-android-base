@@ -1,0 +1,13 @@
+// http proxy
+// System.properties['http.proxyHost'] = 'proxy'
+// System.properties['http.proxyPort'] = '3128'
+// System.properties['http.nonProxyHosts'] = 'localhost|*.yourdomain'
+
+// https proxy
+// System.properties['https.proxyHost'] = 'proxy'
+// System.properties['https.proxyPort'] = '3128'
+// System.properties['https.nonProxyHosts'] = 'localhost|*.yourdomain'
+
+// "it would be great to have a Gradle environment variable named CI set to true when building on Jenkins to define multiple docker profiles (local vs Jenkins based on that property)."
+System.properties['CI'] = 'true'
+
