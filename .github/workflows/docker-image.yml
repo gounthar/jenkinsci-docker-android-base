@@ -34,7 +34,7 @@ jobs:
         name: Build and push infer
         uses: docker/build-push-action@v3
         with:
-          context: ssh-agent/.
+          context: infer/.
           platforms: linux/arm64
           push: true
           tags: gounthar/jenkinsci-docker-android-base:infer-aarch64
