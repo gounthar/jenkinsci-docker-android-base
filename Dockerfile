@@ -11,7 +11,7 @@ RUN mkdir -p /user-cache /shared-cache/{m2,npm,sonar,yarn} /shared-cache/m2/repo
 # bison, byacc, cscope, ctags, cvs, diffstat, doxygen, flex, gcc, gcc-c++, gcc-gfortran, gettext, git, indent, intltool, libtool, patch, patchutils, rcs, redhat-rpm-config, rpm-build, subversion, swig, systemtap
 apt install -y build-essential wget curl zlib1g-dev openssl
 # Install java (OpenJDK)
-RUN apt install -y openjdk-11-jdk-headless debianutils && ls -artl /usr/lib/jvm/* && which java
+RUN apt install -y debianutils && ls -artl /usr/lib/jvm/* && which java
 # Install 32bit Library
 # maybe not necessary apt install -y glibc.i686 glibc-dev.i686 zlib-dev.i686 ncurses-dev.i686 libX11-dev.i686 libXrender.i686 zip unzip && \
 # Install expect, python-pip and python-wheel
@@ -73,7 +73,7 @@ RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/
                                                       "platforms;android-32" \
                                                       "build-tools;32.0.0" \
                                                       "add-ons;addon-google_apis-google-24" \
-                                                      "add-ons;addon-google_apis-google-23" 2>&1 >/dev/null && \ 
+                                                      "add-ons;addon-google_apis-google-23" 2>&1 >/dev/null && \
  chown -R android:developer $ANDROID_HOME && ls -artl /usr/local/android-sdk-linux
 
 # Install Spoon
