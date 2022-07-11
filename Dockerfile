@@ -73,7 +73,7 @@ RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/
                                                       "build-tools;32.0.0" \
                                                       "add-ons;addon-google_apis-google-24" \
                                                       "add-ons;addon-google_apis-google-23" 2>&1 >/dev/null && \
- chown -R android:developer $ANDROID_HOME && ls -artl /usr/local/android-sdk-linux
+ chown -R jenkins:jenkins $ANDROID_HOME && ls -artl /usr/local/android-sdk-linux
 
 # Install Spoon
 # Source: https://oss.sonatype.org/service/local/repositories/snapshots/content/com/squareup/spoon/spoon-runner/2.0.0-SNAPSHOT/spoon-runner-2.0.0-20180516.161323-46-all.jar
