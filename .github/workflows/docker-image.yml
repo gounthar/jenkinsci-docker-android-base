@@ -3,7 +3,7 @@ name: docker image building and pushing
 on:
   push:
     branches:
-      - 'main'
+      - 'jenkins'
   pull_request:
     branches: [ jenkins ]
   schedule:
