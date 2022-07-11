@@ -1,5 +1,5 @@
 # Version 2.0.0
-FROM debian
+FROM jenkins/ssh-agent:jdk11 as ssh-agent
 MAINTAINER gounthar <16569+gounthar@users.noreply.github.com>
 
 COPY conf/openSSL/openssl-1.1.1k.conf /etc/ld.so.conf.d/
