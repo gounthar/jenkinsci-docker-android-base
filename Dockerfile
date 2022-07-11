@@ -140,7 +140,7 @@ ENV PATH "$PATH:/home/jenkins/.linuxbrew/bin"
 RUN USER=android /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Damn, same error
 # Line 147, the script calls ${USER}. Let's try to export this variable
-RUN export USER=android && echo $USER && \
+RUN export USER=jenkins && echo $USER && \
     /home/linuxbrew/.linuxbrew/bin/brew shellenv >> /home/jenkins/.bashrc && \
 # There's a bug with xorg formulae cf https://github.com/Homebrew/linuxbrew-core/issues/387 \
 # && brew tap linuxbrew/xorg
