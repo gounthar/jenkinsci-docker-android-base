@@ -2,7 +2,7 @@
 FROM jenkins/ssh-agent:jdk11 as ssh-agent
 MAINTAINER gounthar <16569+gounthar@users.noreply.github.com>
 
-RUN apt update && apt install -y git
+RUN apt update && apt install -y git opam
 # Checkout Infer
 RUN mkdir -p /home/jenkins/infer && cd /home/jenkins/infer && \
     git clone https://github.com/facebook/infer.git
