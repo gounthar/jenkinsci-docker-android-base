@@ -1,6 +1,6 @@
 FROM jenkins/ssh-agent:jdk11 as ssh-agent
 
-RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y curl git unzip
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y curl git unzip android-sdk*
 
 # Now time to install Maven
 ARG MAVEN_VERSION=3.8.1
@@ -20,11 +20,7 @@ ENV PATH="${M2_HOME}/bin/:${PATH}"
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV CMDLINE_TOOLS_HOME $ANDROID_HOME/cmdline-tools
 ENV PATH /usr/local/bin:$PATH:CMDLINE_TOOLS_HOME/tools/bin
-RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/android-sdk-linux && \
- curl -L -O  https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip && \
- unzip -qq commandlinetools-linux-8512546_latest.zip -d tmp && mv tmp/cmdline-tools/* cmdline-tools/latest && \
- rm -rf /usr/local/android-sdk-linux/commandlinetools-linux-8512546_latest.zip && \
- yes|/usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --licenses && \
+RUN yes|/usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --licenses && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --update && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --list && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platform-tools" \

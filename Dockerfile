@@ -54,26 +54,10 @@ RUN mkdir -p /root/.android && touch /root/.android/repositories.cfg
 # Install Android SDK
 # See https://stackoverflow.com/questions/60440509/android-command-line-tools-sdkmanager-always-shows-warning-could-not-create-se
 ENV JAVA_HOME /opt/java/openjdk/
-# Used to be /usr/lib/jvm/java-11-openjdk
-ENV ANDROID_HOME /usr/local/android-sdk-linux
+ENV ANDROID_HOME=/usr/lib/android-sdk
 ENV CMDLINE_TOOLS_HOME $ANDROID_HOME/cmdline-tools
 ENV PATH /usr/local/bin:$PATH:CMDLINE_TOOLS_HOME/tools/bin
-RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/android-sdk-linux && \
- curl -L -O  https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip && \
- unzip -qq commandlinetools-linux-7302050_latest.zip -d tmp && mv tmp/cmdline-tools/* cmdline-tools/latest && \
- rm -rf /usr/local/android-sdk-linux/commandlinetools-linux-6858069_latest.zip && \
- yes|/usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --licenses && \
- /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --update && \
- /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --list && \
- /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platform-tools" \
-                                                      "ndk;23.1.7779620" \
-                                                      "extras;google;m2repository" \
-                                                      "extras;android;m2repository" \
-                                                      "platforms;android-32" \
-                                                      "build-tools;32.0.0" \
-                                                      "add-ons;addon-google_apis-google-24" \
-                                                      "add-ons;addon-google_apis-google-23" 2>&1 >/dev/null && \
- chown -R jenkins:jenkins $ANDROID_HOME && ls -artl /usr/local/android-sdk-linux
+RUN chown -R jenkins:jenkins $ANDROID_HOME && ls -artl $ANDROID_HOME
 
 # Install Spoon
 # Source: https://oss.sonatype.org/service/local/repositories/snapshots/content/com/squareup/spoon/spoon-runner/2.0.0-SNAPSHOT/spoon-runner-2.0.0-20180516.161323-46-all.jar
@@ -117,11 +101,18 @@ RUN cd /usr/local/bin && \
   unzip -o -qq gradle-6.7.1-bin.zip && \
   rm -rf /usr/local/bin/gradle-6.7.1-bin.zip
 
-# Install Infer
-ENV INFER_VERSION 1.1.0
-RUN curl -sSL "https://github.com/facebook/infer/releases/download/v$INFER_VERSION/infer-linux64-v$INFER_VERSION.tar.xz" \
-    | tar -C /opt -xJ && \
-    ln -s "/opt/infer-linux64-v$INFER_VERSION/bin/infer" /usr/local/bin/infer
+# Checkout Infer
+RUN cd /home/jenkins && \
+    git clone https://github.com/facebook/infer.git
+# Compile Infer
+RUN apt-get install -y bash curl libc6-dev \
+                       openjdk-11-jdk-headless \
+                       sqlite3 \
+                       xz-utils \
+                       zlib1g-dev
+RUN cd /home/jenkins/infer && ./build-infer.sh java && \
+# install Infer system-wide...
+    make install
 
 # Install Flutter
 RUN cd /opt && git clone https://github.com/flutter/flutter.git
