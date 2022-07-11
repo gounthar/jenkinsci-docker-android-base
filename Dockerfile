@@ -53,7 +53,7 @@ RUN mkdir -p /root/.android && touch /root/.android/repositories.cfg
 
 # Install Android SDK
 # See https://stackoverflow.com/questions/60440509/android-command-line-tools-sdkmanager-always-shows-warning-could-not-create-se
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+ENV JAVA_HOME /opt/java/openjdk/bin/java
 # Used to be /usr/lib/jvm/java-11-openjdk
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV CMDLINE_TOOLS_HOME $ANDROID_HOME/cmdline-tools
