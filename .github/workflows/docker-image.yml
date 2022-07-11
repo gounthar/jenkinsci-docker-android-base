@@ -3,7 +3,7 @@ name: docker image building and pushing
 on:
   push:
     branches:
-      - 'jenkins'
+      - 'aarch64'
   pull_request:
     branches: [ jenkins ]
   schedule:
@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/arm64
           push: true
           tags: gounthar/jenkinsci-docker-android-base:jenkins
       -
@@ -43,6 +43,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ssh-agent/.
-          platforms: linux/amd64
+          platforms: linux/arm64
           push: true
-          tags: gounthar/jenkinsci-docker-android-base:jenkins-ssh-agent
+          tags: gounthar/jenkinsci-docker-android-base:jenkins-ssh-agent-aarch64

@@ -9,7 +9,7 @@ RUN mkdir -p /user-cache /shared-cache/{m2,npm,sonar,yarn} /shared-cache/m2/repo
 # Install Development Tools needed for NDK and so on
 # The current applications available with the CentOS Development tools apt installgroup are:
 # bison, byacc, cscope, ctags, cvs, diffstat, doxygen, flex, gcc, gcc-c++, gcc-gfortran, gettext, git, indent, intltool, libtool, patch, patchutils, rcs, redhat-rpm-config, rpm-build, subversion, swig, systemtap
-apt install -y build-essential wget curl zlib1g-dev openssl
+apt install -y build-essential wget curl zlib1g-dev openssl android-sdk*
 # Install java (OpenJDK)
 RUN apt install -y debianutils && which java
 # Install 32bit Library
