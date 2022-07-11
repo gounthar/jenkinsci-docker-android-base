@@ -21,14 +21,14 @@ ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV CMDLINE_TOOLS_HOME $ANDROID_HOME/cmdline-tools
 ENV PATH /usr/local/bin:$PATH:CMDLINE_TOOLS_HOME/tools/bin
 RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/android-sdk-linux && \
- curl -L -O  https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip && \
- unzip -qq commandlinetools-linux-7302050_latest.zip -d tmp && mv tmp/cmdline-tools/* cmdline-tools/latest && \
- rm -rf /usr/local/android-sdk-linux/commandlinetools-linux-6858069_latest.zip && \
+ curl -L -O  https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip && \
+ unzip -qq commandlinetools-linux-8512546_latest.zip -d tmp && mv tmp/cmdline-tools/* cmdline-tools/latest && \
+ rm -rf /usr/local/android-sdk-linux/commandlinetools-linux-8512546_latest.zip && \
  yes|/usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --licenses && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --update && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --list && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platform-tools" \
-                                                      "ndk;23.1.7779620" \
+                                                      "ndk;23.2.8568313" \
                                                       "extras;google;m2repository" \
                                                       "extras;android;m2repository" \
                                                       "platforms;android-32" \
