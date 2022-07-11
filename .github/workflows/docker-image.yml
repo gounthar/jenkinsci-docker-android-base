@@ -38,3 +38,11 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: gounthar/jenkinsci-docker-android-base
+      -
+        name: Build and push ssh-agent
+        uses: docker/build-push-action@v3
+        with:
+          context: ssh-agent/.
+          platforms: linux/amd64
+          push: true
+          tags: gounthar/jenkinsci-docker-android-base:ssh-agent
