@@ -36,14 +36,14 @@ RUN chmod 440 /etc/sudoers
 ################################################################################
 USER root
 
-# RUN groupadd -r developer && useradd -m -d /home/android/ -s /bin/bash --no-log-init -r -g developer android
+# RUN groupadd -r developer && useradd -m -d /home/jenkins/ -s /bin/bash --no-log-init -r -g developer android
 # Because of #12 0.558 [error] character map file `UTF-8' not found: No such file or directory
 RUN apt install -y locales && \
        localedef -i en_US -f UTF-8 en_US.UTF-8
 #    && groupmod -g 18000006 users \
 #    && usermod -u 102 android \
 #    && groupmod -g 100 developer \
-#    && chown -R android:developer /home/android \
+#    && chown -R android:developer /home/jenkins \
 #    && chown -R android:developer /user-cache \
     ## cache dir for build toolings
 #    && chown -R android:developer /shared-cache
@@ -85,14 +85,14 @@ RUN cd $SPOON_HOME && chmod 755 spoon-runner-2.0.0.jar && chmod 755 spoon-runner
 
 # Install OpenSTF script
 ENV OPEN_STF_HOME /usr/local/openstf
-RUN mkdir -p /usr/local/openstf && mkdir -p /home/android/.android/adbkey && chown -R android:developer /home/android/.android/adbkey && \
-    chmod 644 /home/android/.android/adbkey && chmod -R 777 /home/android/.android
+RUN mkdir -p /usr/local/openstf && mkdir -p /home/jenkins/.android/adbkey && chown -R jenkins:jenkins /home/jenkins/.android/adbkey && \
+    chmod 644 /home/jenkins/.android/adbkey && chmod -R 777 /home/jenkins/.android
 ADD scripts/android-stf-api.py /usr/local/openstf
 RUN chmod 755 /usr/local/openstf/android-stf-api.py
  
 # Install ADB keys for OpenSTF
-ADD conf/adb/adbkey.txt /home/android/.android/adbkey
-ADD conf/adb/adbkey.pub /home/android/.android/adbkey.pub
+ADD conf/adb/adbkey.txt /home/jenkins/.android/adbkey
+ADD conf/adb/adbkey.pub /home/jenkins/.android/adbkey.pub
 
 # Install apk analyser script
 ADD scripts/apkanalyser.sh /usr/local/apkanalyser/apkanalyser.sh
@@ -134,25 +134,25 @@ RUN flutter doctor
 # Install Homebrew in the hope of installing rbenv and then fastlane
 # #32 0.386 Insufficient permissions to install Homebrew to "/home/linuxbrew/.linuxbrew".
 # USER android
-WORKDIR /home/android
-ENV PATH "$PATH:/home/android/.linuxbrew/bin"
+WORKDIR /home/jenkins
+ENV PATH "$PATH:/home/jenkins/.linuxbrew/bin"
 # fails with a "bash: line 147: USER: unbound variable" error RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 RUN USER=android /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Damn, same error
 # Line 147, the script calls ${USER}. Let's try to export this variable
 RUN export USER=android && echo $USER && \
-    /home/linuxbrew/.linuxbrew/bin/brew shellenv >> /home/android/.bashrc && \
+    /home/linuxbrew/.linuxbrew/bin/brew shellenv >> /home/jenkins/.bashrc && \
 # There's a bug with xorg formulae cf https://github.com/Homebrew/linuxbrew-core/issues/387 \
 # && brew tap linuxbrew/xorg
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) && brew install fastlane && brew install firebase-cli && \
 #  brew install curl && \
-# Some users are getting this error Error loading plugin 'fastlane-plugin-firebase_app_distribution': You don't have write permissions for the /home/android/.linuxbrew/Cellar/fastlane/2.148.1/libexec directory.
+# Some users are getting this error Error loading plugin 'fastlane-plugin-firebase_app_distribution': You don't have write permissions for the /home/jenkins/.linuxbrew/Cellar/fastlane/2.148.1/libexec directory.
   sudo chmod -R 777 /home/linuxbrew/.linuxbrew/ && find / -name firebase && firebase
 
 USER android
 # MAVEN CONFIG (Cache support & proxy)
-ADD ["./conf/mvn/settings.xml", "/home/android/.m2/settings.xml"]
-ADD ["./conf/mvn/settings-security.xml", "/home/android/.m2/settings-security.xml"]
+ADD ["./conf/mvn/settings.xml", "/home/jenkins/.m2/settings.xml"]
+ADD ["./conf/mvn/settings-security.xml", "/home/jenkins/.m2/settings-security.xml"]
 
 # PROXY CONFIG
 ENV OPENSTF_URL 192.168.0.86
@@ -176,7 +176,7 @@ ENV SONAR_USER_HOME=/shared-cache/sonar/
 
 # Specify the www and the workdir :
 USER www
-WORKDIR /home/android
+WORKDIR /home/jenkins
 
 # PATH CONFIG
 ENV PATH $PATH:$ANDROID_HOME/tools
@@ -190,11 +190,11 @@ ENV PATH $PATH:$SPOON_HOME
 ENV PATH $PATH:$APP_GARDEN_HOME
 ENV PATH $PATH:$OPEN_STF_HOME
 ENV PATH $PATH:$APK_ANALYSER_HOME
-ENV PATH $PATH:/home/android/.linuxbrew/lib/ruby/gems/2.5.0/bin
-ENV HOMEBREW_PREFIX "/home/android/.linuxbrew"
+ENV PATH $PATH:/home/jenkins/.linuxbrew/lib/ruby/gems/2.5.0/bin
+ENV HOMEBREW_PREFIX "/home/jenkins/.linuxbrew"
 ENV HOMEBREW_CELLAR "$HOMEBREW_PREFIX/Cellar"
 ENV HOMEBREW_REPOSITORY "$HOMEBREW_PREFIX/Homebrew"
-# ENV PATH $HOMEBREW_PREFIX/bin:/home/android/.linuxbrew/sbin${PATH+:$PATH}
+# ENV PATH $HOMEBREW_PREFIX/bin:/home/jenkins/.linuxbrew/sbin${PATH+:$PATH}
 # ENV MANPATH $HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:
 # ENV INFOPATH $HOMEBREW_PREFIX/share/info${INFOPATH+:$INFOPATH}
 # fastlane requires some environment variables set up to run correctly.
@@ -206,6 +206,6 @@ ENV LANG en_US.UTF-8
 CMD ["bash", "-l -c"]
 
 # Nah, forget it, it's not read. So we're using this trick
-ENV BASH_ENV "/home/android/.bashrc"
+ENV BASH_ENV "/home/jenkins/.bashrc"
 # Check container health by running a command inside the container
 HEALTHCHECK CMD /usr/local/android-sdk-linux/tools/bin/sdkmanager
