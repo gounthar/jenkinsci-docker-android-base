@@ -5,7 +5,7 @@ on:
     branches:
       - 'aarch64'
   pull_request:
-    branches: [ jenkins ]
+    branches: [ infer ]
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Will build everyday at 4:30 and 16:30
@@ -31,18 +31,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push latest
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/arm64
-          push: true
-          tags: gounthar/jenkinsci-docker-android-base:jenkins
-      -
-        name: Build and push ssh-agent
+        name: Build and push infer
         uses: docker/build-push-action@v3
         with:
           context: ssh-agent/.
           platforms: linux/arm64
           push: true
-          tags: gounthar/jenkinsci-docker-android-base:jenkins-ssh-agent-aarch64
+          tags: gounthar/jenkinsci-docker-android-base:infer-aarch64
