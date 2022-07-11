@@ -137,7 +137,7 @@ RUN flutter doctor
 WORKDIR /home/jenkins
 ENV PATH "$PATH:/home/jenkins/.linuxbrew/bin"
 # fails with a "bash: line 147: USER: unbound variable" error RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-RUN USER=android /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+RUN USER=jenkins /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Damn, same error
 # Line 147, the script calls ${USER}. Let's try to export this variable
 RUN export USER=jenkins && echo $USER && \
