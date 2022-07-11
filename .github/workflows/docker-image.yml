@@ -3,9 +3,9 @@ name: docker image building and pushing
 on:
   push:
     branches:
-      - 'aarch64'
+      - 'infer-aarch64'
   pull_request:
-    branches: [ infer ]
+    branches: [ infer-aarch64 ]
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Will build everyday at 4:30 and 16:30
