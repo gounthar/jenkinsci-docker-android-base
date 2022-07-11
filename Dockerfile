@@ -39,9 +39,9 @@ USER root
 RUN groupadd -r developer && useradd -m -d /home/android/ -s /bin/bash --no-log-init -r -g developer android
 # Because of #12 0.558 [error] character map file `UTF-8' not found: No such file or directory
 RUN apt install -y locales && \
-       localedef -i en_US -f UTF-8 en_US.UTF-8 \
+       localedef -i en_US -f en_US.UTF-8 \
     && groupmod -g 18000006 users \
-    && usermod -u 102 android \
+#    && usermod -u 102 android \
     && groupmod -g 100 developer \
     && chown -R android:developer /home/android \
     ## cache dir used by block cache in .gitlab-ci.yml
