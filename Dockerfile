@@ -11,7 +11,7 @@ RUN mkdir -p /user-cache /shared-cache/{m2,npm,sonar,yarn} /shared-cache/m2/repo
 # bison, byacc, cscope, ctags, cvs, diffstat, doxygen, flex, gcc, gcc-c++, gcc-gfortran, gettext, git, indent, intltool, libtool, patch, patchutils, rcs, redhat-rpm-config, rpm-build, subversion, swig, systemtap
 apt install -y build-essential wget curl zlib1g-dev openssl
 # Install java (OpenJDK)
-RUN apt install -y debianutils && ls -artl /usr/lib/jvm/* && which java
+RUN apt install -y debianutils && which java
 # Install 32bit Library
 # maybe not necessary apt install -y glibc.i686 glibc-dev.i686 zlib-dev.i686 ncurses-dev.i686 libX11-dev.i686 libXrender.i686 zip unzip && \
 # Install expect, python-pip and python-wheel
