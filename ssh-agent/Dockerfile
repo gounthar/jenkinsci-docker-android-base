@@ -18,6 +18,8 @@ ENV PATH="${M2_HOME}/bin/:${PATH}"
 # Install Android SDK
 # See https://stackoverflow.com/questions/60440509/android-command-line-tools-sdkmanager-always-shows-warning-could-not-create-se
 ENV ANDROID_HOME /usr/local/android-sdk-linux
+# > SDK location not found. Define location with an ANDROID_SDK_ROOT environment variable or by setting the sdk.dir path in your project's local properties file at '/home/jenkins/workspace/First Android Job/local.properties'.
+ENV ANDROID_SDK_ROOT /usr/local/android-sdk-linux
 ENV CMDLINE_TOOLS_HOME $ANDROID_HOME/cmdline-tools
 ENV PATH /usr/local/bin:$PATH:CMDLINE_TOOLS_HOME/tools/bin
 RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/android-sdk-linux && \
