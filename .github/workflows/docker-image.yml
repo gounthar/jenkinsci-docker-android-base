@@ -3,7 +3,7 @@ name: docker image building and pushing
 on:
   push:
     branches:
-      - 'jenkins'
+      - 'termux'
   pull_request:
     branches: [ termux ]
   schedule:
