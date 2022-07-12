@@ -30,7 +30,7 @@ RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --update && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --list && \
  /usr/local/android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platform-tools" \
-                                                      "ndk;23.2.8568313" \
+                                                      "ndk;21.4.7075529" \
                                                       "extras;google;m2repository" \
                                                       "extras;android;m2repository" \
                                                       "platforms;android-32" \
