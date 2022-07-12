@@ -33,8 +33,9 @@ RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/
                                                       "ndk;21.4.7075529" \
                                                       "extras;google;m2repository" \
                                                       "extras;android;m2repository" \
-                                                      "platforms;android-32" \
-                                                      "build-tools;32.0.0" \
+                                                      "platforms;android-30" \
+                                                      "emulator;31.2.10" \
+                                                      "build-tools;30.0.2" \
                                                       "add-ons;addon-google_apis-google-24" \
                                                       "add-ons;addon-google_apis-google-23" 2>&1 >/dev/null && \
  chown -R jenkins:jenkins $ANDROID_HOME && ls -artl /usr/local/android-sdk-linux
