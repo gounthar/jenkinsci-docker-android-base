@@ -22,6 +22,8 @@ ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV ANDROID_SDK_ROOT /usr/local/android-sdk-linux
 ENV CMDLINE_TOOLS_HOME $ANDROID_HOME/cmdline-tools
 ENV PATH /usr/local/bin:$PATH:CMDLINE_TOOLS_HOME/tools/bin
+ARG ANDROID_BUILD_TOOLS_VERSION=30.0.2
+
 RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/android-sdk-linux && \
  curl -L -O  https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip && \
  unzip -qq commandlinetools-linux-8512546_latest.zip -d tmp && mv tmp/cmdline-tools/* cmdline-tools/latest && \
@@ -35,7 +37,8 @@ RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/
                                                       "extras;android;m2repository" \
                                                       "platforms;android-30" \
                                                       "emulator" \
-                                                      "build-tools;30.0.2" \
+                                                      "build-tools;$ANDROID_BUILD_TOOLS_VERSION" \
                                                       "add-ons;addon-google_apis-google-24" \
                                                       "add-ons;addon-google_apis-google-23" 2>&1 >/dev/null && \
  chown -R jenkins:jenkins $ANDROID_HOME && ls -artl /usr/local/android-sdk-linux
+ENV PATH /usr/local/android-sdk-linux/build-tools/$ANDROID_BUILD_TOOLS_VERSION/:$PATH
