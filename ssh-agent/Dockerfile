@@ -35,7 +35,7 @@ RUN mkdir -p /usr/local/android-sdk-linux/cmdline-tools/latest && cd /usr/local/
                                                       "ndk;21.4.7075529" \
                                                       "extras;google;m2repository" \
                                                       "extras;android;m2repository" \
-                                                      "platforms;android-30" \
+                                                      "platforms;android-32" \
                                                       "emulator" \
                                                       "build-tools;$ANDROID_BUILD_TOOLS_VERSION" \
                                                       "add-ons;addon-google_apis-google-24" \
