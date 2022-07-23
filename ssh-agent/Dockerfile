@@ -1,6 +1,6 @@
 FROM jenkins/ssh-agent:jdk11 as ssh-agent
 
-RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y build-essential curl file git unzip
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y aha build-essential curl file git unzip
 
 # Now time to install Maven
 ARG MAVEN_VERSION=3.8.1
